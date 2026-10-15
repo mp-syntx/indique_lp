@@ -1,0 +1,203 @@
+/* LP "Indique sua empresa", alternativa B (rodada 3, review T004).
+   Estrutura da alternativa A (formulário flutuante à direita, passos simples, dúvidas) com o design system
+   do app Eva Maternidade (Figma 857:2532): campo azul-claro, cartões brancos, ação magenta, Poppins + Instrument Sans.
+   No celular, a Mariana ocupa o topo e o texto entra sobre a metade de baixo da foto, com um degradê escuro. */
+:root{
+  color-scheme: light;
+  --azul:#78C0D7; --azul-soft:#BBDEEA; --azul-bg:#E4F5FB; --azul-accent:#E1F2F8; --azul-ink:#2F6F86; --noite:#173A47;
+  --ring:#71AFC3; --borda:#D4E1E5; --muted:#546673; --ink:#1F2A30; --papel:#FFFFFF;
+  --magenta:#CD3976; --magenta-2:#B12C63; --magenta-ink:#A3245A; --rosa:#FCE3EC;
+  --verde:#277D60; --verde-bg:#E3F1EA; --creme:#FEF9EC; --creme-ink:#7A5A12;
+  --display:"Poppins", system-ui, sans-serif;
+  --body:"Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --r:24px; --max:1240px; --gut:24px; --form-w:400px; --gap:56px;
+  --edge:max(var(--gut), calc((100vw - var(--max)) / 2 + var(--gut)));
+  --sombra:0 18px 44px -12px rgba(47,111,134,.28), 0 2px 6px rgba(47,111,134,.08);
+  --sai:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;scroll-padding-top:96px;-webkit-text-size-adjust:100%;scrollbar-color:var(--azul-soft) transparent;scrollbar-width:thin}
+body{margin:0;background:var(--papel);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip;caret-color:var(--magenta)}
+::selection{background:var(--rosa);color:var(--magenta-ink)}
+img{max-width:100%;display:block;height:auto}
+h1,h2,h3{font-family:var(--display);line-height:1.12;margin:0;text-wrap:balance;letter-spacing:-.02em}
+h2{font-size:clamp(28px,3vw,38px);font-weight:700}
+h3{font-size:19px;font-weight:600}
+p{margin:0}
+a{color:var(--magenta-ink);text-underline-offset:3px}
+section{position:relative;padding-block:88px}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gut)}
+.col{position:relative}
+.i{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+:focus-visible{outline:3px solid var(--ring);outline-offset:3px;border-radius:8px}
+.skip{position:absolute;left:-999px;top:8px;z-index:100;background:var(--ink);color:#fff;padding:10px 16px;border-radius:999px;font-weight:600}
+.skip:focus{left:8px}
+
+/* ---------- botões ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 26px;border-radius:999px;border:0;background:var(--magenta);color:#fff;font:600 16px/1.2 var(--display);text-decoration:none;cursor:pointer;transition:background .2s,transform .2s var(--sai)}
+.btn:hover{background:var(--magenta-2)}
+.btn:active{transform:scale(.98)}
+.btn .i{width:18px;height:18px}
+.btn-full{width:100%}
+
+/* ---------- topo ---------- */
+.top{position:fixed;top:12px;left:0;right:0;z-index:60;padding-inline:12px;pointer-events:none}
+.top-in{pointer-events:auto;max-width:calc(var(--max) - 2 * var(--gut) + 32px);margin-inline:auto;display:flex;align-items:center;gap:24px;height:60px;padding:0 24px 0 22px;border-radius:999px;
+  background:rgba(255,255,255,.82);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border:1px solid rgba(212,225,229,.8);transition:box-shadow .3s,background .3s}
+.top.rolou .top-in{background:rgba(255,255,255,.94);box-shadow:0 12px 32px -18px rgba(47,111,134,.45)}
+.marca img{height:26px;width:auto}
+.top-nav{display:flex;gap:28px;margin-left:auto;font-size:15px;font-weight:500}
+.top-nav a{color:var(--muted);text-decoration:none;transition:color .2s}
+.top-nav a:hover{color:var(--ink)}
+
+/* ---------- abertura ---------- */
+.hero{padding:84px 0 0;background:linear-gradient(180deg,var(--azul-bg) 0%,#EAF7FB 100%);overflow:hidden}
+.hero .col{min-height:600px}
+.hero-txt{position:relative;z-index:1;max-width:440px;padding-block:72px 96px}
+.hero h1{font-size:clamp(36px,3.8vw,52px);font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.hero h1 em{font-style:normal;color:var(--magenta)}
+.lead{margin-top:20px;font-size:18.5px;color:var(--muted);max-width:24em}
+.garantias{list-style:none;margin:26px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:10px 22px}
+.garantias li{display:flex;align-items:center;gap:8px;font-weight:500;font-size:15px}
+.garantias .i{width:18px;height:18px;color:var(--verde)}
+.hero-cta{display:none}
+.hero-foto{position:absolute;bottom:0;height:calc(100% - 24px);max-height:640px;width:auto;max-width:none;pointer-events:none}
+.hero-foto-m{display:none}
+
+/* ---------- formulário: cabeçalho claro, título escuro (como na alternativa A) ---------- */
+.form-slot .eva-indique{
+  --ei-head:linear-gradient(120deg,var(--azul-accent) 0%,#F5FBFD 70%);
+  --ei-head-ink:var(--ink); --ei-head-sub:var(--muted); --ei-head-selo:var(--azul-ink);
+  z-index:30;
+}
+.form-slot .eva-indique .ei-head h2{font-size:24px;font-weight:800;letter-spacing:-.02em}
+.form-slot .eva-indique.realce{animation:realce 1.1s var(--sai)}
+@keyframes realce{0%{box-shadow:var(--ei-sombra),0 0 0 0 rgba(205,57,118,.45)}40%{box-shadow:var(--ei-sombra),0 0 0 8px rgba(205,57,118,.18)}100%{box-shadow:var(--ei-sombra),0 0 0 14px rgba(205,57,118,0)}}
+
+/* ---------- como funciona ---------- */
+.passos{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.passo-ico{display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:var(--azul-accent);color:var(--azul-ink);margin-bottom:18px}
+.passo-ico .i{width:24px;height:24px}
+.passos li:last-child .passo-ico{background:var(--rosa);color:var(--magenta-ink)}
+.passos h3{margin-bottom:6px}
+.passos p{font-size:16px;color:var(--muted)}
+
+/* ---------- o que muda ---------- */
+.muda{background:var(--azul-bg);padding-bottom:0;overflow:hidden}
+.muda-topo h2{max-width:16em}
+.muda-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:28px;align-items:stretch}
+.muda-txt{padding-bottom:88px}
+.muda-intro{margin-top:14px;color:var(--muted);max-width:32em}
+.fases{list-style:none;margin:28px 0 0;padding:0;display:grid;gap:16px}
+.fases li{display:flex;gap:16px;align-items:center}
+.fases b{display:block;font:600 17px/1.3 var(--display);color:var(--ink)}
+.fases li>span:last-child{font-size:15.5px;line-height:1.45;color:var(--muted)}
+/* ícones das fases, os mesmos do seletor de fase do app (Figma 596:2329) */
+.fase-ico{display:grid;place-items:center;flex:none;width:56px;height:56px;border-radius:50%;background:#fff;box-shadow:0 6px 16px -8px rgba(47,111,134,.4)}
+.fase-ico img{width:34px;height:34px}
+/* telas do app em leque, sangrando pela base da faixa */
+/* a coluna das telas acompanha a lista: o topo das telas alinha com a primeira fase e a base sangra pelo fim da faixa */
+.telas{position:relative;min-height:440px;margin-top:28px}
+.tela{position:absolute;top:0;width:72%;border-radius:30px;border:6px solid #fff;box-shadow:0 30px 60px -24px rgba(23,58,71,.45);transition:transform .9s var(--sai)}
+.t1{left:-6%;width:52%;transform:rotate(-6deg) translateY(40px)}
+.t2{left:50%;z-index:2;transform:translateX(-50%)}
+.t3{right:-6%;width:52%;transform:rotate(6deg) translateY(40px)}
+.js .telas:not(.vis) .t1{transform:rotate(0) translate(40%,100px)}
+.js .telas:not(.vis) .t3{transform:rotate(0) translate(-40%,100px)}
+.js .telas:not(.vis) .t2{transform:translateX(-50%) translateY(70px)}
+
+/* ---------- dúvidas ---------- */
+.faq h2{margin-bottom:24px}
+.faq-lista{display:grid;gap:10px;max-width:760px}
+.faq details{background:var(--azul-bg);border-radius:18px;border:1px solid transparent;transition:border-color .2s,background .2s}
+.faq details:hover{border-color:var(--azul-soft)}
+.faq details[open]{background:#fff;border-color:var(--borda)}
+.faq summary{list-style:none;cursor:pointer;position:relative;padding:20px 60px 20px 22px;font:600 17px/1.35 var(--display);color:var(--ink);border-radius:18px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:18px;top:50%;width:28px;height:28px;margin-top:-14px;border-radius:50%;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232F6F86' stroke-width='2.2' stroke-linecap='round'%3E%3Cpath d='M12 7v10M7 12h10'/%3E%3C/svg%3E") center/15px no-repeat;transition:transform .3s var(--sai)}
+.faq details[open] summary::after{transform:rotate(45deg);background-color:var(--azul-accent)}
+.faq details p{padding:0 60px 20px 22px;color:var(--muted)}
+
+.rodape{padding-block:32px 40px;font-size:14px;color:var(--muted)}
+.rodape-in{display:flex;align-items:center;gap:20px;flex-wrap:wrap;border-top:1px solid var(--borda);padding-top:28px}
+.rodape img{height:24px;width:auto}
+
+.barra{display:none}
+
+/* ---------- desktop: formulário fixo à direita ---------- */
+@media (min-width:1100px){
+  .wrap.col{padding-right:calc(var(--gut) + var(--form-w) + var(--gap))}
+  .form-slot .eva-indique{position:fixed;top:92px;right:var(--edge);width:var(--form-w);max-height:calc(100vh - 108px)}
+  .hero-foto{right:calc(var(--gut) + var(--form-w) + var(--gap) - 90px)}
+}
+/* entre 1100 e 1279px não há espaço para a foto entre o texto e o formulário */
+@media (min-width:1100px) and (max-width:1279px){
+  .hero-foto{display:none}
+}
+
+/* ---------- tablet: formulário no fluxo ---------- */
+@media (max-width:1099px){
+  .top-nav{display:none}
+  .hero .col{min-height:0;display:flex;flex-direction:column}
+  .hero-txt{padding-block:40px 0;max-width:640px}
+  .hero-cta{display:inline-flex;margin-top:28px}
+  .hero-foto{position:relative;align-self:center;height:auto;width:min(320px,70%);margin-top:24px}
+  .form-slot{position:relative;z-index:2;padding-inline:var(--gut);margin-top:-48px}
+  .form-slot .eva-indique{max-width:560px}
+  section{padding-block:64px}
+  .muda{padding-bottom:0}
+  .muda-grid{grid-template-columns:1fr;gap:0}
+  .muda-txt .fases{margin-top:24px}
+  .muda-txt{padding-bottom:0}
+  .telas{min-height:0;height:min(92vw,600px);max-width:560px;width:100%;margin:28px auto 0}
+  .tela{width:50%}
+  .t1,.t3{width:38%}
+  .t1{left:2%}
+  .t3{right:2%}
+  .barra{display:block;position:fixed;left:0;right:0;bottom:0;z-index:50;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid var(--borda);transform:translateY(110%);transition:transform .3s var(--sai)}
+  .barra.on{transform:none}
+  .rodape{padding-bottom:104px}
+}
+
+/* ---------- celular: a Mariana no topo, o texto sobre a metade de baixo da foto ---------- */
+@media (max-width:760px){
+  :root{--gut:20px}
+  body{font-size:16px}
+  .top{top:8px;padding-inline:8px}
+  .top-in{height:52px;padding:0 18px}
+  .marca img{height:22px}
+  .hero{padding:0;background:var(--noite);min-height:min(100svh,820px);display:flex;flex-direction:column;justify-content:flex-end}
+  .hero-foto-m{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 0}
+  /* degradê: escuro na base, some antes do rosto */
+  .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(23,58,71,.97) 0%,rgba(23,58,71,.9) 30%,rgba(23,58,71,.55) 46%,rgba(23,58,71,0) 60%);pointer-events:none}
+  .hero .col{position:relative;z-index:1;width:100%}
+  .hero-foto{display:none}
+  .hero-txt{padding-block:0 28px;color:#fff}
+  .hero h1{font-size:clamp(29px,8.2vw,36px);color:#fff}
+  .hero h1 em{color:var(--azul-soft)}
+  .lead{font-size:16px;margin-top:12px;color:rgba(255,255,255,.88)}
+  .garantias{margin-top:16px;gap:6px 16px}
+  .garantias li{font-size:13.5px;color:#fff}
+  .garantias .i{color:var(--azul-soft);width:16px;height:16px}
+  .hero-cta{width:100%;margin-top:20px}
+  .form-slot{margin-top:24px;padding-inline:12px}
+  .passos{grid-template-columns:1fr;gap:24px;margin-top:28px}
+  .passos li{display:grid;grid-template-columns:52px 1fr;column-gap:16px}
+  .passo-ico{grid-row:span 2;margin:0}
+  .fases{gap:14px}
+  .fase-ico{width:52px;height:52px}
+  .fase-ico img{width:32px;height:32px}
+  .telas{height:96vw;margin-inline:calc(var(--gut) * -1);width:auto}
+  .tela{width:56%;border-width:5px;border-radius:26px}
+  .t1,.t3{width:46%}
+  .t1{left:-6%}
+  .t3{right:-6%}
+  .faq summary{font-size:16px;padding:18px 56px 18px 18px}
+  .faq details p{padding:0 18px 18px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
