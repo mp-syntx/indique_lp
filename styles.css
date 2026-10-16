@@ -62,7 +62,7 @@ section{position:relative;padding-block:88px}
 .garantias li{display:flex;align-items:center;gap:8px;font-weight:500;font-size:15px}
 .garantias .i{width:18px;height:18px;color:var(--verde)}
 .hero-cta{display:none}
-.hero-foto{position:absolute;bottom:0;height:calc(100% - 24px);max-height:640px;width:auto;max-width:none;pointer-events:none}
+.hero-foto{position:absolute;bottom:0;height:calc(100% - 64px);max-height:540px;width:auto;max-width:none;pointer-events:none}
 .hero-foto-m{display:none}
 
 /* ---------- formulário: cabeçalho claro, título escuro (como na alternativa A) ---------- */
@@ -129,7 +129,7 @@ section{position:relative;padding-block:88px}
 @media (min-width:1100px){
   .wrap.col{padding-right:calc(var(--gut) + var(--form-w) + var(--gap))}
   .form-slot .eva-indique{position:fixed;top:92px;right:var(--edge);width:var(--form-w);max-height:calc(100vh - 108px)}
-  .hero-foto{right:calc(var(--gut) + var(--form-w) + var(--gap) - 90px)}
+  .hero-foto{right:calc(var(--gut) + var(--form-w) + var(--gap) - 190px)}
 }
 /* entre 1100 e 1279px não há espaço para a foto entre o texto e o formulário */
 @media (min-width:1100px) and (max-width:1279px){
@@ -168,7 +168,7 @@ section{position:relative;padding-block:88px}
   .top-in{height:52px;padding:0 18px}
   .marca img{height:22px}
   .hero{padding:0;background:var(--noite);min-height:min(100svh,820px);display:flex;flex-direction:column;justify-content:flex-end}
-  .hero-foto-m{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 0}
+  .hero-foto-m{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0}
   /* degradê: escuro na base, some antes do rosto */
   .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(23,58,71,.97) 0%,rgba(23,58,71,.9) 30%,rgba(23,58,71,.55) 46%,rgba(23,58,71,0) 60%);pointer-events:none}
   .hero .col{position:relative;z-index:1;width:100%}
